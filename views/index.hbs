@@ -1,0 +1,25 @@
+
+<h1>Maps</h1>
+
+{{!-- create an empty div for the map to be rendered --}}
+<div id="mapid"></div>
+
+
+<script>
+    // parse the variable that you set in your routes
+    // to access any variable passed from handlebars we need to use the quotes and two curly opening/closing brackets
+    // "{{ VARIABLE }}"
+
+    // Since we use the quotes, we ensure that we stringiy the data while sending from the route and
+    // parse it in your .hbs script tag to preserve the original data type
+
+    let loc = JSON.parse("{{loc}}")
+
+    var map = L.map('mapid').setView(loc, 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([51.5, -0.09]).addTo(map)
+        .bindPopup('This is my pop up<br> Easily customizable.')
+</script>
