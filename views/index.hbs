@@ -7,15 +7,11 @@
 
 <script>
     // parse the variable that you set in your routes
-    // to access any variable passed from handlebars we need to use the quotes and two curly opening/closing brackets
-    // "{{ VARIABLE }}"
+    // to access any variable passed from handlebars we need to use the quotes and three curly opening/closing brackets
+    // "{{{ VARIABLE }}}"
 
-    // Since we use the quotes, we ensure that we stringiy the data while sending from the route and
-    // parse it in your .hbs script tag to preserve the original data type
-
-    let loc = JSON.parse("{{loc}}")
-
-    var map = L.map('mapid').setView(loc, 13);
+    let ourDataDromRoutes = {{{loc}}}
+    var map = L.map('mapid').setView(ourDataDromRoutes, 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);

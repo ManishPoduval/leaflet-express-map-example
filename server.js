@@ -21,6 +21,7 @@ app.get("/", (req, res, next) => {
     let loc = [51.505, -0.09]
     // Sending some data to the hbs page
     
+    //Always stringify data that the scripts might use in your hbs file
     res.render("index.hbs", {loc: JSON.stringify(loc)});
   });
   
