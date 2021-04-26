@@ -4,18 +4,40 @@
 {{!-- create an empty div for the map to be rendered --}}
 <div id="mapid"></div>
 
-
+<script src="./js/countries.geo.js"></script>
 <script>
     // parse the variable that you set in your routes
     // to access any variable passed from handlebars we need to use the quotes and three curly opening/closing brackets
     // "{{{ VARIABLE }}}"
 
     let ourDataDromRoutes = {{{loc}}}
-    var map = L.map('mapid').setView(ourDataDromRoutes, 13);
+    var map = L.map('mapid').setView(ourDataDromRoutes, 5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker([51.5, -0.09]).addTo(map)
-        .bindPopup('This is my pop up<br> Easily customizable.')
+    function getColor(d) {
+        let colors = ['red', 'green', 'blue', 'orange', 'yellow', 'pink',  'purple']
+        return colors[Math.floor(Math.random() * colors.length)]
+    }
+
+    function style(feature) {
+        return {
+            fillColor: getColor(feature.properties.density),
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+        };
+    }   
+
+    L.geoJson(world, {
+      style: style
+    })
+    .bindPopup((l) => {
+        return '<a href="/hello/' +  l?.feature?.properties?.name + '">' +  l?.feature?.properties?.name + '</a>'
+    }) 
+    .addTo(map);
+
 </script>
